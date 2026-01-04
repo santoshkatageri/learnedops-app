@@ -113,6 +113,64 @@ export default function HomePage() {
         </div>
 
       </section>
+      {/* Latest Writing */}
+      <section
+        aria-labelledby="latest-writing-heading"
+        className="py-20 border-t border-gray-200"
+      >
+        <div className="max-w-5xl mx-auto px-4">
+          {/* Heading */}
+          <div className="flex items-baseline justify-between">
+            <h2
+              id="latest-writing-heading"
+              className="text-2xl font-semibold tracking-tight text-[#0097b2]"
+            >
+              LearnedOps Trends
+            </h2>
+
+            <a
+              href="/blog"
+              className="text-sm font-medium text-[#0097b2] hover:underline"
+            >
+              View all →
+            </a>
+          </div>
+
+          <p className="mt-3 max-w-2xl text-gray-600">
+            Ongoing thoughts and patterns across DevOps, engineering careers, and
+            long-term systems thinking.
+          </p>
+
+          {/* Posts list */}
+          <div className="mt-10 space-y-10">
+            {/* Post 1 */}
+            <article>
+              <h3 className="text-lg font-semibold text-[#0097b2]">
+                <a href="/blog/devops-beyond-tools" className="hover:underline">
+                  DevOps Beyond Tools
+                </a>
+              </h3>
+              <p className="mt-2 text-gray-600">
+                Why DevOps is more about feedback loops, system design, and decision
+                making than tools and certifications.
+              </p>
+              <p className="mt-2 text-sm text-gray-400">
+                Jan 1, 2026
+              </p>
+            </article>
+
+            {/* Post 2 (placeholder for now) */}
+            <article>
+              <h3 className="text-lg font-semibold text-gray-400">
+                More writing coming soon
+              </h3>
+              <p className="mt-2 text-gray-500">
+                New essays are published regularly as part of the LearnedOps roadmap.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
 
     </main>
   );
