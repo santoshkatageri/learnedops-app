@@ -1,16 +1,31 @@
 @import "tailwindcss";
 
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* LearnedOps brand tokens */
+  --brand-primary: #0097b2;
+  --brand-dark: #08003f;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Map brand tokens to Tailwind color utilities */
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-dark: var(--brand-dark);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @media (prefers-color-scheme: dark) {
   :root {
