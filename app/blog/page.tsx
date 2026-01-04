@@ -2,44 +2,59 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
+import { getAllPosts } from "../lib/posts"; // adjust path if needed
 
-const BLOG_DIR = path.join(process.cwd(), "content/blog");
+export const metadata = {
+    title: "LearnedOps Insights",
+    description:
+        "Perspectives on DevOps beyond tools, engineering careers, and long-term systems thinking — grounded in real-world experience.",
+};
 
-export default function BlogIndex() {
-    const files = fs.readdirSync(BLOG_DIR);
-
-    const posts = files.map((file) => {
-        const source = fs.readFileSync(
-            path.join(BLOG_DIR, file),
-            "utf8"
-        );
-        const { data } = matter(source);
-
-        return {
-            slug: file.replace(".mdx", ""),
-            title: data.title,
-            date: data.date,
-        };
-    });
+export default function BlogPage() {
+    const posts = getAllPosts();
 
     return (
-        <main>
-            <h1 className="text-2xl font-bold mb-4">Blog</h1>
-            <ul className="space-y-2">
-                {posts.map((post) => (
-                    <li key={post.slug}>
-                        <Link
-                            href={`/blog/${post.slug}`}
-                            className="text-blue-600 underline"
-                        >
-                            {post.title}
-                        </Link>
-                        <div className="text-sm text-gray-500">
-                            {post.date}
-                        </div>
-                    </li>
-                ))}
-            </ul>
+        <main className="py-20">
+            <div className="max-w-5xl mx-auto px-4">
+                {/* Page header */}
+                <header className="max-w-3xl">
+                    <h1 className="text-3xl font-semibold tracking-tight text-[#0097b2]">
+                        LearnedOps Insights
+                    </h1>
+
+                    <p className="mt-4 text-gray-600">
+                        Perspectives on DevOps beyond tools, engineering careers, and
+                        long-term systems thinking — grounded in real-world experience.
+                    </p>
+                </header>
+
+                {/* Divider */}
+                <hr className="my-10 border-gray-200" />
+
+                {/* Posts */}
+                <section className="space-y-14">
+                    {posts.map((post) => (
+                        <article key={post.slug}>
+                            <h2 className="text-xl font-semibold">
+                                <Link
+                                    href={`/blog/${post.slug}`}
+                                    className="text-[#0097b2] hover:underline"
+                                >
+                                    {post.title}
+                                </Link>
+                            </h2>
+
+                            <p className="mt-3 max-w-3xl text-gray-600">
+                                {post.excerpt}
+                            </p>
+
+                            <p className="mt-3 text-sm text-gray-400">
+                                {post.date}
+                            </p>
+                        </article>
+                    ))}
+                </section>
+            </div>
         </main>
     );
 }

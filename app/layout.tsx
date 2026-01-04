@@ -1,11 +1,31 @@
 import Link from "next/link";
 import "./globals.css";
 
-export const metadata = {
-  title: "LearnedOps",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    default: "LearnedOps — DevOps Beyond Tools",
+    template: "%s | LearnedOps",
+  },
   description:
-    "DevOps beyond tools. Finance beyond money. Build systems, build stability.",
+    "LearnedOps is a calm, layered approach to DevOps, engineering careers, and long-term financial thinking — beyond tools and hype.",
+  metadataBase: new URL("https://learnedops.app"), // change if domain differs
+  openGraph: {
+    title: "LearnedOps — DevOps Beyond Tools",
+    description:
+      "DevOps, careers, and money for engineers — focused on systems thinking, real-world decisions, and long-term clarity.",
+    url: "https://learnedops.app",
+    siteName: "LearnedOps",
+    locale: "en_US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
+
 
 export default function RootLayout({
   children,
