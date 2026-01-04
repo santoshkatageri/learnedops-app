@@ -58,11 +58,27 @@ export default async function BlogPost({
     const { content, data } = matter(source);
 
     return (
-        <article className="prose prose-neutral prose-lg max-w-none leading-relaxed">
-            <h1>{data.title}</h1>
-            <p className="text-sm text-gray-500">{data.date}</p>
+        <main className="py-20">
+            <article className="mx-auto max-w-[80ch] px-6">
 
-            <MDXRemote source={content} />
-        </article>
+                {/* Meta */}
+                <header className="mb-16">
+                    <h1 className="text-4xl font-semibold tracking-tight">
+                        {data.title}
+                    </h1>
+
+                    <p className="mt-4 text-sm text-gray-400">
+                        {data.date}
+                    </p>
+                </header>
+
+                {/* Content */}
+                <div className="prose prose-invert prose-lg leading-relaxed">
+                    <MDXRemote source={content} />
+                </div>
+
+            </article>
+        </main>
     );
+
 }

@@ -109,6 +109,12 @@ export default function RootLayout({
                         Contact
                       </a>
                     </li>
+                    <li>
+                      <a href="/disclaimer" className="hover:underline">
+                        Disclaimer
+                      </a>
+                    </li>
+
                   </ul>
                 </div>
               </div>
