@@ -46,6 +46,73 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {/* What We Focus On */}
+      <section
+        aria-labelledby="focus-heading"
+        className="py-16 border-t border-gray-200"
+      >
+        <div className="mt-12 grid gap-10 sm:grid-cols-2">
+          {/* DevOps */}
+          <div className="space-y-2">
+            <span className="text-sm font-medium uppercase tracking-wide text-[#0097b2]">
+              DevOps
+            </span>
+            <h3 className="text-lg font-semibold">
+              Beyond Tools
+            </h3>
+            <hr className="my-5 border-[#0097b2]/20" />
+            <p className="text-gray-600">
+              Systems thinking, infrastructure decisions, reliability, cost trade-offs,
+              and real-world DevOps lessons — not tool-chasing tutorials.
+            </p>
+          </div>
+          {/* Career */}
+          <div className="space-y-2">
+            <span className="text-sm font-medium uppercase tracking-wide text-[#0097b2]">
+              Career
+            </span>
+            <h3 className="text-lg font-semibold">
+              Clear Engineering Growth
+            </h3>
+            <hr className="my-5 border-[#0097b2]/20" />
+            <p className="text-gray-600">
+              Guidance for engineers navigating IC growth, skill prioritization,
+              resumes, interviews, and avoiding long-term stagnation.
+            </p>
+          </div>
+
+          {/* Finance */}
+          <div className="space-y-2">
+            <span className="text-sm font-medium uppercase tracking-wide text-[#0097b2]">
+              Finance
+            </span>
+            <h3 className="text-lg font-semibold">
+              Money Without Noise
+            </h3>
+            <hr className="my-5 border-[#0097b2]/20" />
+            <p className="text-gray-600">
+              Salary vs wealth, FIRE basics, RSUs, EPF, NPS, and long-term financial
+              clarity — explained calmly for engineers.
+            </p>
+          </div>
+
+          {/* Roadmaps */}
+          <div className="space-y-2">
+            <span className="text-sm font-medium uppercase tracking-wide text-[#0097b2]">
+              Practice
+            </span>
+            <h3 className="text-lg font-semibold">
+              Roadmaps & Labs
+            </h3>
+            <hr className="my-5 border-[#0097b2]/20" />
+            <p className="text-gray-600">
+              Layered learning paths, real scenarios, and hands-on labs — evolving into
+              deeper workflows with LevelUpOps.
+            </p>
+          </div>
+        </div>
+
+      </section>
 
     </main>
   );
