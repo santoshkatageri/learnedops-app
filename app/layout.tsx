@@ -24,10 +24,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className="bg-white text-gray-800 antialiased">
+        <div className="max-w-3xl mx-auto px-4 py-10">
+          <header className="mb-12">
+            <h1 className="text-3xl font-bold tracking-tight">
+              LearnedOps
+      </h1>
+            <p className="text-gray-500 mt-2">
+              DevOps — Beyond Tools. Finance — Beyond Money.
+      </p>
+          </header>
+
+          {children}
+        </div>
       </body>
     </html>
   );
