@@ -14,9 +14,9 @@ if (!process.env.GITHUB_DEPLOY_KEY) {
     process.exit(1);
 }
 
-console.log("🔐 Setting up SSH...");
+console.log("🔐 Setting up SSH environment...");
 
-// Create SSH dir
+// Ensure ssh directory
 execSync("mkdir -p ~/.ssh");
 
 // Write private key
@@ -24,13 +24,15 @@ execSync(
     `echo "$GITHUB_DEPLOY_KEY" | base64 --decode > ~/.ssh/id_ed25519`
 );
 
-// Fix permissions (required by ssh)
+// Permissions REQUIRED or SSH refuses key
 execSync("chmod 600 ~/.ssh/id_ed25519");
 
-// ✅ THIS IS THE CRITICAL LINE
-execSync("ssh-keyscan github.com >> ~/.ssh/known_hosts");
+// Explicitly trust GitHub host (THIS FIXES YOUR ERROR)
+execSync("ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts");
 
 console.log("📥 Fetching LearnedOps content...");
-execSync(`git clone ${REPO_URL} ${CONTENT_DIR}`, { stdio: "inherit" });
+execSync(`git clone ${REPO_URL} ${CONTENT_DIR}`, {
+    stdio: "inherit",
+});
 
 console.log("✔ Content available at ./content");
