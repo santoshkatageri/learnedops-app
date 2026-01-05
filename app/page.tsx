@@ -33,19 +33,33 @@ export default function HomePage() {
 
           <div className="mt-8 flex gap-4">
             <Link
-              href="/blog"
-              className="inline-block rounded-md bg-brand-primary px-5 py-2 text-sm font-medium text-white hover:opacity-90"
-            >
-              Read the Blog
-            </Link>
+    href="/blog"
+    className="
+      inline-block rounded-md
+      bg-brand-primary px-5 py-2
+      text-sm font-medium text-white
+      hover:opacity-90
+      transition
+    "
+  >
+    Read the Blog
+  </Link>
 
-            <Link
-              href="/roadmap"
-              className="inline-block rounded-md border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 hover:border-gray-400"
-            >
-              Explore the Roadmap
-            </Link>
-          </div>
+  <Link
+    href="/roadmap"
+    className="
+      inline-block rounded-md
+      border border-white/40 px-5 py-2
+      text-sm font-medium text-white/90
+      hover:border-white
+      hover:bg-white/10
+      hover:text-white
+      transition
+    "
+  >
+    Explore the Roadmap
+  </Link>
+</div>
         </div>
       </section>
 
@@ -120,7 +134,7 @@ export default function HomePage() {
           <div className="flex items-baseline justify-between">
             <h2
               id="latest-writing-heading"
-              className="text-2xl font-semibold tracking-tight text-[#0097b2]"
+              className="text-2xl font-semibold tracking-tight text-white"
             >
               LearnedOps Trends
             </h2>

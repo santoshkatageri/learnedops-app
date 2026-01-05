@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: "*",
             allow: "/",
         },
-        sitemap: "https://learnedops.app/sitemap.xml",
+        sitemap: "https://learnedops.com/sitemap.xml",
     };
 }

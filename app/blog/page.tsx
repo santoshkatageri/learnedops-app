@@ -19,7 +19,7 @@ export default function BlogPage() {
 
                 {/* Page header */}
                 <header className="max-w-3xl">
-                    <h1 className="text-3xl font-semibold tracking-tight text-[#0097b2]">
+                    <h1 className="text-3xl font-semibold tracking-tight text-[#ffffff]">
                         LearnedOps Insights
                     </h1>
 
@@ -37,7 +37,7 @@ export default function BlogPage() {
                     {posts.map((post) => (
                         <article
                             key={post.slug}
-                            className="max-w-3xl"
+                            className="max-w-5xl"
                         >
                             <h2 className="text-xl font-semibold leading-snug">
                                 <Link
