@@ -6,7 +6,31 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import type { Metadata } from "next";
 import { Callout, Note, Quote } from "@/components/mdx";
 
+/* -------------------------------------------------------------------------- */
+/*                                   TYPES                                    */
+/* -------------------------------------------------------------------------- */
 
+type ChangelogEntry = {
+    version: string;
+    date: string;
+    changes: string[];
+};
+
+type BlogFrontmatter = {
+    title: string;
+    slug?: string;
+    summary?: string;
+    status?: string;
+    version?: string;
+    published?: string;
+    updated?: string;
+    tags?: string[];
+    changelog?: ChangelogEntry[];
+};
+
+/* -------------------------------------------------------------------------- */
+/*                               CONFIGURATION                                */
+/* -------------------------------------------------------------------------- */
 
 /**
  * Force dynamic rendering (safe for dev & prod)
@@ -15,14 +39,16 @@ export const dynamic = "force-dynamic";
 
 const BLOG_DIR = path.resolve("content/blog");
 
-/* 🔹 SEO METADATA */
+/* -------------------------------------------------------------------------- */
+/*                               SEO METADATA                                 */
+/* -------------------------------------------------------------------------- */
+
 export async function generateMetadata({
     params,
 }: {
     params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
     const { slug } = await params;
-
     const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
 
     if (!fs.existsSync(filePath)) {
@@ -31,19 +57,23 @@ export async function generateMetadata({
 
     const source = fs.readFileSync(filePath, "utf8");
     const { data } = matter(source);
+    const frontmatter = data as BlogFrontmatter;
 
     return {
-        title: data.title,
-        description: data.excerpt,
+        title: frontmatter.title,
+        description: frontmatter.summary,
         openGraph: {
-            title: data.title,
-            description: data.excerpt,
+            title: frontmatter.title,
+            description: frontmatter.summary,
             type: "article",
         },
     };
 }
 
-/* 🔹 PAGE RENDER */
+/* -------------------------------------------------------------------------- */
+/*                                 PAGE VIEW                                  */
+/* -------------------------------------------------------------------------- */
+
 export default async function BlogPost({
     params,
 }: {
@@ -56,32 +86,41 @@ export default async function BlogPost({
 
     const source = fs.readFileSync(filePath, "utf8");
     const { content, data } = matter(source);
+    const frontmatter = data as BlogFrontmatter;
 
     return (
         <main className="py-12">
             <article className="mx-auto max-w-5xl px-6">
 
-                {/* Header */}
+                {/* ------------------------------------------------------------------ */}
+                {/* Header                                                             */}
+                {/* ------------------------------------------------------------------ */}
+
                 <header className="mb-8">
                     <h1 className="text-4xl font-semibold tracking-tight">
-                        {data.title}
+                        {frontmatter.title}
                     </h1>
 
-                    {data.summary && (
+                    {frontmatter.summary && (
                         <p className="mt-3 text-lg text-gray-500 max-w-4xl">
-                            {data.summary}
+                            {frontmatter.summary}
                         </p>
                     )}
 
                     <div className="mt-3 text-sm text-gray-400 flex flex-wrap gap-x-3">
-                        <span>{data.published}</span>
-                        {data.version && <span>• v{data.version}</span>}
-                        {data.updated && <span>• Updated {data.updated}</span>}
-                        {data.status && <span>• {data.status}</span>}
+                        {frontmatter.published && <span>{frontmatter.published}</span>}
+                        {frontmatter.version && <span>• v{frontmatter.version}</span>}
+                        {frontmatter.updated && (
+                            <span>• Updated {frontmatter.updated}</span>
+                        )}
+                        {frontmatter.status && <span>• {frontmatter.status}</span>}
                     </div>
                 </header>
 
-                {/* Content */}
+                {/* ------------------------------------------------------------------ */}
+                {/* Content                                                            */}
+                {/* ------------------------------------------------------------------ */}
+
                 <div className="max-w-4xl">
                     <div className="prose prose-neutral prose-lg">
                         <MDXRemote
@@ -91,18 +130,22 @@ export default async function BlogPost({
                     </div>
                 </div>
 
-                {data.changelog ?.length > 0 && (
+                {/* ------------------------------------------------------------------ */}
+                {/* Changelog                                                          */}
+                {/* ------------------------------------------------------------------ */}
+
+                {frontmatter.changelog && frontmatter.changelog.length > 0 && (
                     <section className="mt-16 border-t pt-8">
                         <h2 className="text-lg font-semibold mb-4">Changelog</h2>
                         <ul className="space-y-4 text-sm text-gray-600">
-                            {data.changelog.map((entry) => (
+                            {frontmatter.changelog.map((entry) => (
                                 <li key={entry.version}>
                                     <div className="font-medium">
                                         v{entry.version} · {entry.date}
                                     </div>
                                     <ul className="list-disc ml-5 mt-2">
-                                        {entry.changes.map((change, i) => (
-                                            <li key={i}>{change}</li>
+                                        {entry.changes.map((change, index) => (
+                                            <li key={index}>{change}</li>
                                         ))}
                                     </ul>
                                 </li>
@@ -113,6 +156,5 @@ export default async function BlogPost({
 
             </article>
         </main>
-
     );
 }
