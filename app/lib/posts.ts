@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-const postsDirectory = path.join(process.cwd(), "content/blog");
+const postsDirectory = path.join(process.cwd(), "content", "blog");
 
 export type PostMeta = {
     title: string;
@@ -25,6 +25,11 @@ export type PostMeta = {
 };
 
 export function getAllPosts(): PostMeta[] {
+    if (!fs.existsSync(postsDirectory)) {
+        console.warn("⚠️ content/blog not found. Returning empty posts.");
+        return [];
+    }
+
     const files = fs.readdirSync(postsDirectory);
 
     return files
@@ -48,9 +53,10 @@ export function getAllPosts(): PostMeta[] {
                 changelog: data.changelog ?? [],
             };
         })
-        .filter((post) => post.status !== "draft") // 👈 important
-        .sort((a, b) =>
-            new Date(b.published).getTime() -
-            new Date(a.published).getTime()
+        .filter((post) => post.status !== "draft")
+        .sort(
+            (a, b) =>
+                new Date(b.published).getTime() -
+                new Date(a.published).getTime()
         );
 }
