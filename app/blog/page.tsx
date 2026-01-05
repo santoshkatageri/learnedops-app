@@ -45,11 +45,11 @@ export default function BlogPage() {
                             </h2>
 
                             <p className="mt-3 max-w-3xl text-gray-600">
-                                {post.excerpt}
+                                {post.summary}
                             </p>
 
                             <p className="mt-3 text-sm text-gray-400">
-                                {post.date}
+                                {post.updated ?? post.published}
                             </p>
                         </article>
                     ))}

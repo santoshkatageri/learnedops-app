@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "fetch:content": "node scripts/fetch-content.mjs",
-    "dev": "npm run fetch:content && next dev",
-    "build": "npm run fetch:content && next build",
+    "dev": "next dev",
+    "prebuild": "node scripts/fetch-content.mjs",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -18,8 +19,8 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.x",
     "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

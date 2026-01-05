@@ -5,16 +5,29 @@ import matter from "gray-matter";
 const postsDirectory = path.join(process.cwd(), "content/blog");
 
 export type PostMeta = {
-    slug: string;
     title: string;
-    excerpt: string;
-    date: string;
+    slug: string;
+    summary: string;
+
+    published: string;
+    updated?: string;
+
+    status?: "draft" | "stable";
+    version?: string;
+
+    tags?: string[];
+
+    changelog?: {
+        version: string;
+        date: string;
+        changes: string[];
+    }[];
 };
 
 export function getAllPosts(): PostMeta[] {
     const files = fs.readdirSync(postsDirectory);
 
-    const posts = files
+    return files
         .filter((file) => file.endsWith(".mdx"))
         .map((file) => {
             const slug = file.replace(/\.mdx$/, "");
@@ -26,11 +39,18 @@ export function getAllPosts(): PostMeta[] {
             return {
                 slug,
                 title: data.title ?? slug,
-                excerpt: data.excerpt ?? "",
-                date: data.date ?? "",
+                summary: data.summary ?? "",
+                published: data.published ?? "",
+                updated: data.updated,
+                status: data.status,
+                version: data.version,
+                tags: data.tags ?? [],
+                changelog: data.changelog ?? [],
             };
         })
-        .sort((a, b) => (a.date < b.date ? 1 : -1));
-
-    return posts;
+        .filter((post) => post.status !== "draft") // 👈 important
+        .sort((a, b) =>
+            new Date(b.published).getTime() -
+            new Date(a.published).getTime()
+        );
 }

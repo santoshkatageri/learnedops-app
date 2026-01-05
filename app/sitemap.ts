@@ -1,21 +1,30 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "./lib/posts";
 
+function safeDate(value?: string) {
+    const d = value ? new Date(value) : new Date();
+    return isNaN(d.getTime()) ? new Date() : d;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
+    const baseUrl = "https://learnedops.com";
+
     const posts = getAllPosts();
 
     const blogUrls = posts.map((post) => ({
-        url: `https://learnedops.app/blog/${post.slug}`,
-        lastModified: new Date(post.date),
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: safeDate(
+            post.updated || post.published
+        ),
     }));
 
     return [
         {
-            url: "https://learnedops.app",
+            url: baseUrl,
             lastModified: new Date(),
         },
         {
-            url: "https://learnedops.app/blog",
+            url: `${baseUrl}/blog`,
             lastModified: new Date(),
         },
         ...blogUrls,

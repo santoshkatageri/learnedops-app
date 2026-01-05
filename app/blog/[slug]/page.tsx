@@ -4,6 +4,9 @@ import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import type { Metadata } from "next";
+import { Callout, Note, Quote } from "@/components/mdx";
+
+
 
 /**
  * Force dynamic rendering (safe for dev & prod)
@@ -74,7 +77,12 @@ export default async function BlogPost({
 
                 {/* Content */}
                 <div className="prose prose-invert prose-lg leading-relaxed">
-                    <MDXRemote source={content} />
+                    <MDXRemote source={content}
+                        components={{
+                            Callout,
+                            Note,
+                            Quote,
+                        }} />
                 </div>
 
             </article>
