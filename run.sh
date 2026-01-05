@@ -31,6 +31,7 @@ else
   echo "✔ Content already present"
 fi
 
+
 # Step 2: Start dev server
 echo "🚀 Starting Next.js dev server"
 npm run dev
