@@ -1,72 +1,72 @@
 import Link from "next/link";
+import { getLatestBlogs } from "./lib/blog";
 
 export default function HomePage() {
+  // ✅ DEFINE DATA BEFORE RETURN
+  const latestBlogs = getLatestBlogs(3);
+
   return (
     <main>
+      {/* Hero */}
       <section aria-labelledby="hero-heading" className="py-16">
-
         <div className="max-w-3xl">
-          {/* Editorial content */}
           <div className="prose prose-neutral">
             <h1 id="hero-heading" className="text-4xl font-bold tracking-tight">
               DevOps Beyond Tools
-      </h1>
+            </h1>
 
             <h2 className="mt-4 text-xl text-gray-600">
               Finance Beyond Money. Build a Stable Life.
-      </h2>
+            </h2>
 
             <p className="mt-6">
               LearnedOps is a calm, layered approach to understanding DevOps,
               careers, and money for engineers.
-      </p>
+            </p>
 
             <p>
               We focus on systems thinking, real-world infrastructure decisions,
               automation trade-offs, and long-term financial clarity — not tool
               chasing.
-      </p>
+            </p>
           </div>
 
-          {/* CTAs OUTSIDE prose */}
           <div className="mt-8 flex gap-4">
             <Link
               href="/blog"
               className="inline-block rounded-md bg-brand-primary px-5 py-2 text-sm font-medium text-white hover:opacity-90"
             >
               Read the Blog
-      </Link>
+            </Link>
 
             <Link
               href="/roadmap"
               className="inline-block rounded-md border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 hover:border-gray-400"
             >
               Explore the Roadmap
-      </Link>
+            </Link>
           </div>
         </div>
       </section>
+
       {/* What We Focus On */}
       <section
         aria-labelledby="focus-heading"
         className="py-16 border-t border-gray-200"
       >
         <div className="mt-12 grid gap-10 sm:grid-cols-2">
-          {/* DevOps */}
           <div className="space-y-2">
             <span className="text-sm font-medium uppercase tracking-wide text-[#0097b2]">
               DevOps
             </span>
-            <h3 className="text-lg font-semibold">
-              Beyond Tools
-            </h3>
+            <h3 className="text-lg font-semibold">Beyond Tools</h3>
             <hr className="my-5 border-[#0097b2]/20" />
             <p className="text-gray-600">
               Systems thinking, infrastructure decisions, reliability, cost trade-offs,
               and real-world DevOps lessons — not tool-chasing tutorials.
             </p>
           </div>
-          {/* Career */}
+
           <div className="space-y-2">
             <span className="text-sm font-medium uppercase tracking-wide text-[#0097b2]">
               Career
@@ -81,7 +81,6 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Finance */}
           <div className="space-y-2">
             <span className="text-sm font-medium uppercase tracking-wide text-[#0097b2]">
               Finance
@@ -96,7 +95,6 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Roadmaps */}
           <div className="space-y-2">
             <span className="text-sm font-medium uppercase tracking-wide text-[#0097b2]">
               Practice
@@ -111,15 +109,14 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-
       </section>
-      {/* Latest Writing */}
+
+      {/* LearnedOps Trends */}
       <section
         aria-labelledby="latest-writing-heading"
         className="py-20 border-t border-gray-200"
       >
         <div className="max-w-5xl mx-auto px-4">
-          {/* Heading */}
           <div className="flex items-baseline justify-between">
             <h2
               id="latest-writing-heading"
@@ -128,12 +125,12 @@ export default function HomePage() {
               LearnedOps Trends
             </h2>
 
-            <a
+            <Link
               href="/blog"
               className="text-sm font-medium text-[#0097b2] hover:underline"
             >
               View all →
-            </a>
+            </Link>
           </div>
 
           <p className="mt-3 max-w-2xl text-gray-600">
@@ -141,37 +138,29 @@ export default function HomePage() {
             long-term systems thinking.
           </p>
 
-          {/* Posts list */}
           <div className="mt-10 space-y-10">
-            {/* Post 1 */}
-            <article>
-              <h3 className="text-lg font-semibold text-[#0097b2]">
-                <a href="/blog/devops-beyond-tools" className="hover:underline">
-                  DevOps Beyond Tools
-                </a>
-              </h3>
-              <p className="mt-2 text-gray-600">
-                Why DevOps is more about feedback loops, system design, and decision
-                making than tools and certifications.
-              </p>
-              <p className="mt-2 text-sm text-gray-400">
-                Jan 1, 2026
-              </p>
-            </article>
+            {latestBlogs.map((post) => (
+              <article key={post.slug}>
+                <h3 className="text-lg font-semibold text-[#0097b2]">
+                  <Link href={`/blog/${post.slug}`} className="hover:underline">
+                    {post.title}
+                  </Link>
+                </h3>
 
-            {/* Post 2 (placeholder for now) */}
-            <article>
-              <h3 className="text-lg font-semibold text-gray-400">
-                More writing coming soon
-              </h3>
-              <p className="mt-2 text-gray-500">
-                New essays are published regularly as part of the LearnedOps roadmap.
-              </p>
-            </article>
+                <p className="mt-2 text-gray-600">{post.summary}</p>
+
+                <p className="mt-2 text-sm text-gray-400">
+                  {new Date(post.published).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
-
     </main>
   );
 }
