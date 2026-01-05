@@ -50,43 +50,49 @@ export default async function BlogPost({
     params: Promise<{ slug: string }>;
 }) {
     const { slug } = await params;
-
     const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
 
-    if (!fs.existsSync(filePath)) {
-        notFound();
-    }
+    if (!fs.existsSync(filePath)) notFound();
 
     const source = fs.readFileSync(filePath, "utf8");
     const { content, data } = matter(source);
 
     return (
-        <main className="py-20">
-            <article className="mx-auto max-w-[80ch] px-6">
+        <main className="py-12">
+            <article className="mx-auto max-w-5xl px-6">
 
-                {/* Meta */}
-                <header className="mb-16">
+                {/* Header */}
+                <header className="mb-8">
                     <h1 className="text-4xl font-semibold tracking-tight">
                         {data.title}
                     </h1>
 
-                    <p className="mt-4 text-sm text-gray-400">
-                        {data.date}
-                    </p>
+                    {data.summary && (
+                        <p className="mt-3 text-lg text-gray-500 max-w-4xl">
+                            {data.summary}
+                        </p>
+                    )}
+
+                    <div className="mt-3 text-sm text-gray-400 flex flex-wrap gap-x-3">
+                        <span>{data.published}</span>
+                        {data.version && <span>• v{data.version}</span>}
+                        {data.updated && <span>• Updated {data.updated}</span>}
+                        {data.status && <span>• {data.status}</span>}
+                    </div>
                 </header>
 
                 {/* Content */}
-                <div className="prose prose-invert prose-lg leading-relaxed">
-                    <MDXRemote source={content}
-                        components={{
-                            Callout,
-                            Note,
-                            Quote,
-                        }} />
+                <div className="max-w-4xl">
+                    <div className="prose prose-neutral prose-lg">
+                        <MDXRemote
+                            source={content}
+                            components={{ Callout, Note, Quote }}
+                        />
+                    </div>
                 </div>
 
             </article>
         </main>
-    );
 
+    );
 }

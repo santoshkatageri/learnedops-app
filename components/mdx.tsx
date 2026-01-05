@@ -1,26 +1,19 @@
-export function Callout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export function Callout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="my-8 rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 text-sm text-blue-900">
+        <div className="callout rounded-lg border-l-4 border-blue-500 bg-blue-50 px-5 py-4 text-sm text-blue-900">
             {children}
         </div>
     );
 }
 
-export function Note({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export function Note({ children }: { children: React.ReactNode }) {
     return (
-        <div className="my-8 rounded-lg border-l-4 border-gray-400 bg-gray-50 p-4 text-sm text-gray-800">
+        <div className="note rounded-md border-l-4 border-gray-400 bg-gray-50 px-5 py-4 text-sm text-gray-800">
             {children}
         </div>
     );
 }
+
 
 export function Quote({
     children,

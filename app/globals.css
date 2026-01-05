@@ -1,6 +1,77 @@
 @import "tailwindcss";
 
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
 
+  /* LearnedOps brand tokens */
+  --brand-primary: #0097b2;
+  --brand-dark: #08003f;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Map brand tokens to Tailwind color utilities */
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-dark: var(--brand-dark);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   LearnedOps: List Rendering Fix
+   ───────────────────────────────────────────── */
+
+   .prose ul {
+    list-style-type: disc;
+    padding-left: 1.4em;
+    margin-top: 0.8em;
+    margin-bottom: 1.2em;
+  }
+
+  .prose ol {
+    list-style-type: decimal;
+    padding-left: 1.4em;
+    margin-top: 0.8em;
+    margin-bottom: 1.2em;
+  }
+
+  .prose li {
+    margin-top: 0.35em;
+    margin-bottom: 0.35em;
+  }
+
+  /* Fix marker visibility (especially with prose-invert) */
+  .prose li::marker {
+    color: currentColor;
+  }
+
+  .prose > :first-child {
+    margin-top: 0;
+  }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -39,3 +110,91 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+/* ─────────────────────────────────────────────
+   LearnedOps Article Typography System
+   ───────────────────────────────────────────── */
+
+   .prose {
+    line-height: 1.75;
+  }
+
+  /* Paragraphs */
+  .prose p {
+    margin-top: 0.9rem;
+    margin-bottom: 0.9rem;
+  }
+
+  /* Headings */
+  .prose h2 {
+    margin-top: 2.4rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .prose h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  /* Lists */
+  .prose ul,
+  .prose ol {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    padding-left: 1.25rem;
+  }
+
+  .prose li {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose li::marker {
+    color: currentColor;
+  }
+
+  /* Reduce gap when a heading follows text */
+  .prose p + h2 {
+    margin-top: 1.6rem;
+  }
+
+  /* Callouts */
+  .prose .callout,
+  .prose .note {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Horizontal rules */
+  .prose hr {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Prevent top jump */
+  .prose > :first-child {
+    margin-top: 0;
+  }
+
+  .prose blockquote {
+    border-left: 4px solid var(--brand-primary);
+    padding-left: 1rem;
+    margin: 1.8em 0;
+    font-style: normal;
+    color: #334155; /* slate-700 */
+  }
+
+  .prose blockquote p {
+    margin: 0;
+  }
+
+  .prose blockquote strong {
+    font-weight: 600;
+  }
