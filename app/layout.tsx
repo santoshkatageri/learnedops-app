@@ -10,12 +10,12 @@ export const metadata: Metadata = {
   },
   description:
     "LearnedOps is a calm, layered approach to DevOps, engineering careers, and long-term financial thinking — beyond tools and hype.",
-  metadataBase: new URL("https://learnedops.app"), // change if domain differs
+  metadataBase: new URL("https://learnedops.com"), // change if domain differs
   openGraph: {
     title: "LearnedOps — DevOps Beyond Tools",
     description:
       "DevOps, careers, and money for engineers — focused on systems thinking, real-world decisions, and long-term clarity.",
-    url: "https://learnedops.app",
+    url: "https://learnedops.com",
     siteName: "LearnedOps",
     locale: "en_US",
     type: "website",
