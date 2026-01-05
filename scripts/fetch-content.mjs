@@ -14,19 +14,23 @@ if (!process.env.GITHUB_DEPLOY_KEY) {
     process.exit(1);
 }
 
+console.log("🔐 Setting up SSH...");
+
+// Create SSH dir
+execSync("mkdir -p ~/.ssh");
+
+// Write private key
+execSync(
+    `echo "$GITHUB_DEPLOY_KEY" | base64 --decode > ~/.ssh/id_ed25519`
+);
+
+// Fix permissions (required by ssh)
+execSync("chmod 600 ~/.ssh/id_ed25519");
+
+// ✅ THIS IS THE CRITICAL LINE
+execSync("ssh-keyscan github.com >> ~/.ssh/known_hosts");
+
 console.log("📥 Fetching LearnedOps content...");
-
-// Write SSH key
-execSync(`
-  mkdir -p ~/.ssh
-  echo "$GITHUB_DEPLOY_KEY" | base64 --decode > ~/.ssh/id_rsa
-  chmod 600 ~/.ssh/id_rsa
-  ssh-keyscan github.com >> ~/.ssh/known_hosts
-`, { stdio: "inherit", shell: "/bin/bash" });
-
-// Clone repo
-execSync(`git clone ${REPO_URL} ${CONTENT_DIR}`, {
-    stdio: "inherit",
-});
+execSync(`git clone ${REPO_URL} ${CONTENT_DIR}`, { stdio: "inherit" });
 
 console.log("✔ Content available at ./content");
