@@ -91,6 +91,26 @@ export default async function BlogPost({
                     </div>
                 </div>
 
+                {data.changelog ?.length > 0 && (
+                    <section className="mt-16 border-t pt-8">
+                        <h2 className="text-lg font-semibold mb-4">Changelog</h2>
+                        <ul className="space-y-4 text-sm text-gray-600">
+                            {data.changelog.map((entry) => (
+                                <li key={entry.version}>
+                                    <div className="font-medium">
+                                        v{entry.version} · {entry.date}
+                                    </div>
+                                    <ul className="list-disc ml-5 mt-2">
+                                        {entry.changes.map((change, i) => (
+                                            <li key={i}>{change}</li>
+                                        ))}
+                                    </ul>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                )}
+
             </article>
         </main>
 
