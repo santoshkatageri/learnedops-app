@@ -19,7 +19,7 @@ export default function BlogPage() {
 
                 {/* Page header */}
                 <header className="max-w-3xl">
-                    <h1 className="text-3xl font-semibold tracking-tight text-[#ffffff]">
+                    <h1 className="text-3xl font-semibold tracking-tight">
                         LearnedOps Insights
                     </h1>
 

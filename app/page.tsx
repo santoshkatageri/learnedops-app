@@ -46,19 +46,28 @@ export default function HomePage() {
   </Link>
 
   <Link
-    href="/roadmap"
-    className="
-      inline-block rounded-md
-      border border-white/40 px-5 py-2
-      text-sm font-medium text-white/90
-      hover:border-white
-      hover:bg-white/10
-      hover:text-white
-      transition
-    "
-  >
-    Explore the Roadmap
-  </Link>
+  href="/roadmap"
+  className="
+    inline-block rounded-md px-5 py-2
+    text-sm font-medium transition
+
+    /* Light mode */
+    border border-gray-300
+    text-gray-800
+    hover:border-gray-400
+    hover:bg-gray-100
+
+    /* Dark mode */
+    dark:border-white/40
+    dark:text-white/90
+    dark:hover:border-white
+    dark:hover:bg-white/10
+    dark:hover:text-white
+  "
+>
+  Explore the Roadmap
+</Link>
+
 </div>
         </div>
       </section>
